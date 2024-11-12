@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Disease Prediction</title>
+  <style>
+    /* General Reset */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #83a4d4, #b6fbff);
+    }
+
+    .container {
+      background: white;
+      width: 400px;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    p {
+      font-size: 16px;
+      color: #666;
+      margin-bottom: 15px;
+    }
+
+    .symptoms-list {
+      max-height: 200px;
+      overflow-y: auto;
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+      padding: 15px;
+      border-radius: 8px;
+    }
+
+    .symptoms-list label {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      color: #444;
+    }
+
+    .symptoms-list input[type="checkbox"] {
+      margin-right: 10px;
+      transform: scale(1.2);
+      cursor: pointer;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    /* Scrollbar styling */
+    .symptoms-list::-webkit-scrollbar {
+      width: 8px;
+    }
+    .symptoms-list::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 8px;
+    }
+    .symptoms-list::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 8px;
+    }
+    .symptoms-list::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Disease Prediction</h1>
+    <p>Select your symptoms:</p>
+    <div class="symptoms-list">
+      <label><input type="checkbox" value="Acne"> Acne</label>
+      <label><input type="checkbox" value="Hyperthyroidism"> Hyperthyroidism</label>
+      <label><input type="checkbox" value="AIDS"> AIDS</label>
+      <label><input type="checkbox" value="Chronic cholestasis"> Chronic cholestasis</label>
+      <label><input type="checkbox" value="Hypertension"> Hypertension</label>
+      <label><input type="checkbox" value="Hypoglycemia"> Hypoglycemia</label>
+      <label><input type="checkbox" value="Arthritis"> Arthritis</label>
+      <label><input type="checkbox" value="Hepatitis B"> Hepatitis B</label>
+      <label><input type="checkbox" value="Migraine"> Migraine</label>
+      <label><input type="checkbox" value="Urinary tract infection"> Urinary tract infection</label>
+      <label><input type="checkbox" value="Diabetes"> Diabetes</label>
+      <label><input type="checkbox" value="Hepatitis D"> Hepatitis D</label>
+      <label><input type="checkbox" value="Psoriasis"> Psoriasis</label>
+      <label><input type="checkbox" value="Alcoholic hepatitis"> Alcoholic hepatitis</label>
+      <label><input type="checkbox" value="Dimorphic hemmorhoids(piles)"> Dimorphic hemmorhoids(piles)</label>
+      <label><input type="checkbox" value="Hepatitis E"> Hepatitis E</label>
+      <label><input type="checkbox" value="Cervical spondylosis"> Cervical spondylosis</label>
+      <label><input type="checkbox" value="Bronchial Asthma"> Bronchial Asthma</label>
+      <label><input type="checkbox" value="Hepatitis A"> Hepatitis A</label>
+      <label><input type="checkbox" value="Allergy"> Allergy</label>
+      <label><input type="checkbox" value="Hepatitis C"> Hepatitis C</label>
+      <label><input type="checkbox" value="Pneumonia"> Pneumonia</label>
+      <label><input type="checkbox" value="Hypothyroidism"> Hypothyroidism</label>
+      <label><input type="checkbox" value="Gastroenteritis"> Gastroenteritis</label>
+      <label><input type="checkbox" value="Varicose veins"> Varicose veins</label>
+      <label><input type="checkbox" value="Jaundice"> Jaundice</label>
+      <label><input type="checkbox" value="Drug Reaction"> Drug Reaction</label>
+      <label><input type="checkbox" value="(vertigo) Paroymsal Positional Vertigo">(vertigo) Paroymsal Positional Vertigo</label>
+      <label><input type="checkbox" value="Heart attack"> Heart attack</label>
+      <label><input type="checkbox" value="Tuberculosis"> Tuberculosis</label>
+      <label><input type="checkbox" value="Typhoid"> Typhoid</label>
+      <label><input type="checkbox" value="Common Cold"> Common Cold</label>
+      <label><input type="checkbox" value="Peptic ulcer disease"> Peptic ulcer disease</label>
+      <label><input type="checkbox" value="Paralysis (brain hemorrhage)"> Paralysis (brain hemorrhage)</label>
+      <label><input type="checkbox" value="Fungal infection"> Fungal infection</label>
+      <label><input type="checkbox" value="Impetigo"> Impetigo</label>
+      <label><input type="checkbox" value="GERD"> GERD</label>
+      <label><input type="checkbox" value="Dengue"> Dengue</label>
+      <label><input type="checkbox" value="Malaria"> Malaria</label>
+      <label><input type="checkbox" value="Chicken pox"> Chicken pox</label>
+      <label><input type="checkbox" value="Osteoarthritis"> Osteoarthritis</label>    </div>
+    <button onclick="redirectWithSymptoms()">Predict Disease</button>
+  </div>
+
+  <script>
+    function getSelectedSymptoms() {
+      const checkboxes = document.querySelectorAll('.symptoms-list input[type="checkbox"]:checked');
+      let selectedSymptoms = [];
+      checkboxes.forEach(checkbox => {
+        selectedSymptoms.push(checkbox.value);
+      });
+      return selectedSymptoms;
+    }
+
+    function redirectWithSymptoms() {
+      const symptoms = getSelectedSymptoms();
+      if (symptoms.length === 0) {
+        alert("Please select at least one symptom.");
+        return;
+      }
+
+      // Redirect to the result page with symptoms as URL parameters
+      const params = new URLSearchParams();
+      params.append('symptoms', symptoms.join(','));
+      window.location.href = `result.html?${params.toString()}`;
+    }
+  </script>
+</body>
+</html>

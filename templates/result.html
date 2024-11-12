@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prediction Result</title>
+  <style>
+    /* Styles for the result page */
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Prediction Result</h1>
+    <p id="prediction">Loading...</p>
+  </div>
+
+  <script>
+    async function fetchPrediction(symptoms) {
+      const response = await fetch('/predict', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ symptoms: symptoms })
+      });
+      const data = await response.json();
+      document.getElementById('prediction').textContent = `Predicted Disease: ${data.disease}`;
+    }
+
+    // Extract symptoms from URL and make the API call
+    const urlParams = new URLSearchParams(window.location.search);
+    const symptoms = urlParams.get('symptoms').split(',');
+    fetchPrediction(symptoms);
+  </script>
+</body>
+</html>
